@@ -18,6 +18,13 @@ export default defineType({
       type: 'slug',
       options: { source: 'title', maxLength: 96 }
     }),
+    // 1. THIS IS THE MISSING FIELD WE ADDED
+    defineField({
+      name: 'mainImage',
+      title: 'Main Image',
+      type: 'image',
+      options: { hotspot: true },
+    }),
     defineField({
       name: 'description',
       title: 'Short Description',
@@ -31,7 +38,8 @@ export default defineType({
     }),
     defineField({
       name: 'price',
-      title: 'Price (e.g. $45.00)',
+      title: 'Price Label',
+      description: 'Type "Check Price" or "~$45" (Do not put exact static prices to avoid Amazon ban)',
       type: 'string',
     }),
     defineField({
@@ -45,7 +53,7 @@ export default defineType({
       type: 'array',
       of: [{type: 'reference', to: {type: 'category'}}],
     }),
-    // THE PRO BODY EDITOR
+    // 2. THE PRO BODY EDITOR (Tables + Images)
     defineField({
       name: 'body',
       title: 'Article Body',
@@ -85,11 +93,11 @@ export default defineType({
         }
       ]
     }),
-    // THE NEW SEO TOOL
+    // 3. THE SEO TOOL
     defineField({
       name: 'seo',
       title: 'SEO Settings',
-      type: 'seo', // <--- This adds the box we created in Step 1
+      type: 'seo',
     }),
   ],
 })
