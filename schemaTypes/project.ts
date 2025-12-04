@@ -37,7 +37,7 @@ export default defineType({
       type: 'text',
       rows: 3
     }),
-    // THE PRO EDITOR
+    // THE PRO BODY EDITOR WITH YOUTUBE
     defineField({
       name: 'body',
       title: 'Article Content',
@@ -74,10 +74,33 @@ export default defineType({
         {
            type: 'table',
            title: 'Comparison Table' 
+        },
+        // YouTube Embed Block
+        {
+          name: 'youtube',
+          type: 'object',
+          title: 'YouTube Embed',
+          fields: [
+            {
+              name: 'url',
+              type: 'url',
+              title: 'YouTube Video URL'
+            }
+          ],
+          preview: {
+            select: {
+              url: 'url'
+            },
+            prepare({ url }: { url: string }) {
+              return {
+                title: 'YouTube Video',
+                subtitle: url
+              }
+            }
+          }
         }
       ]
     }),
-    // THE NEW SEO TOOL
     defineField({
       name: 'seo',
       title: 'SEO Settings',

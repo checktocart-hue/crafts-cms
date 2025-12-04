@@ -18,7 +18,6 @@ export default defineType({
       type: 'slug',
       options: { source: 'title', maxLength: 96 }
     }),
-    // 1. THIS IS THE MISSING FIELD WE ADDED
     defineField({
       name: 'mainImage',
       title: 'Main Image',
@@ -39,7 +38,7 @@ export default defineType({
     defineField({
       name: 'price',
       title: 'Price Label',
-      description: 'Type "Check Price" or "~$45" (Do not put exact static prices to avoid Amazon ban)',
+      description: 'Type "Check Price" or "~$45" (Do not put exact static prices)',
       type: 'string',
     }),
     defineField({
@@ -53,7 +52,7 @@ export default defineType({
       type: 'array',
       of: [{type: 'reference', to: {type: 'category'}}],
     }),
-    // 2. THE PRO BODY EDITOR (Tables + Images)
+    // THE PRO BODY EDITOR WITH YOUTUBE
     defineField({
       name: 'body',
       title: 'Article Body',
@@ -90,10 +89,33 @@ export default defineType({
         {
            type: 'table',
            title: 'Comparison Table' 
+        },
+        // YouTube Embed Block
+        {
+          name: 'youtube',
+          type: 'object',
+          title: 'YouTube Embed',
+          fields: [
+            {
+              name: 'url',
+              type: 'url',
+              title: 'YouTube Video URL'
+            }
+          ],
+          preview: {
+            select: {
+              url: 'url'
+            },
+            prepare({ url }: { url: string }) {
+              return {
+                title: 'YouTube Video',
+                subtitle: url
+              }
+            }
+          }
         }
       ]
     }),
-    // 3. THE SEO TOOL
     defineField({
       name: 'seo',
       title: 'SEO Settings',
